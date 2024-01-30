@@ -2,17 +2,16 @@ const express = require('express');
 const { faker } = require('@faker-js/faker');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // const { productId, categoryId }= req.params;
-  res.json(
-    [
-      "electronics",
-      "jewelery",
-      "men's clothing",
-      "women's clothing"
 
-    ]
-  )
+
+router.get('/', (req, res) => {
+  const categories = [];
+  for (let i = 0; i < 10; i++) { // Puedes ajustar el número 10 según la cantidad de categorías que desees obtener
+    categories.push(faker.commerce.department());
+  }
+  res.json({
+    categories: categories
+  });
 });
 
 router.get('/:categoryId/products/:productId', (req, res) => {
