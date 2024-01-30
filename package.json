@@ -12,6 +12,7 @@
   "author": "Ing Donovan <rojasdrm03@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
