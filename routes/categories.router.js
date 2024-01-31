@@ -1,17 +1,12 @@
 const express = require('express');
-const { faker } = require('@faker-js/faker');
+const CategorieService = require('../services/categorie.service');
 const router = express.Router();
-
+const service = new CategorieService();
 
 
 router.get('/', (req, res) => {
-  const categories = [];
-  for (let i = 0; i < 10; i++) { // Puedes ajustar el número 10 según la cantidad de categorías que desees obtener
-    categories.push(faker.commerce.department());
-  }
-  res.json({
-    categories: categories
-  });
+  const categories = service.find();
+  res.json(categories);
 });
 
 router.get('/:categoryId/products/:productId', (req, res) => {
@@ -27,6 +22,31 @@ router.get('/:categoryId/products/:productId', (req, res) => {
       categoryId
     },
   )
+});
+
+router.get('/:category', (req, res) => {
+  const { category }= req.params;
+  const products = service.findOne(category);
+  res.json(products)
+});
+
+router.post('/', (req, res) => {
+  const body= req.body;
+  const newCategory = service.create(body);
+  res.status(201).json(newCategory)
+});
+
+router.patch('/:category', (req, res) => {
+  const { category }= req.params;
+  const body= req.body;
+  const updateCategory = service.update(category, body);
+  res.json(updateCategory);
+});
+
+router.delete('/:category', (req, res) => {
+  const { category }= req.params;
+  const rta = service.delete(category);
+  res.json(rta);
 });
 
 module.exports = router;
