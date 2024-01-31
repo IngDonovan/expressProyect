@@ -4,8 +4,8 @@ const router = express.Router();
 const service = new CategorieService();
 
 
-router.get('/', (req, res) => {
-  const categories = service.find();
+router.get('/', async (req, res) => {
+  const categories = await service.find();
   res.json(categories);
 });
 
@@ -24,28 +24,28 @@ router.get('/:categoryId/products/:productId', (req, res) => {
   )
 });
 
-router.get('/:category', (req, res) => {
+router.get('/:category', async (req, res) => {
   const { category }= req.params;
-  const products = service.findOne(category);
+  const products = await service.findOne(category);
   res.json(products)
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const body= req.body;
-  const newCategory = service.create(body);
+  const newCategory = await service.create(body);
   res.status(201).json(newCategory)
 });
 
-router.patch('/:category', (req, res) => {
+router.patch('/:category', async (req, res) => {
   const { category }= req.params;
   const body= req.body;
-  const updateCategory = service.update(category, body);
+  const updateCategory = await service.update(category, body);
   res.json(updateCategory);
 });
 
-router.delete('/:category', (req, res) => {
+router.delete('/:category', async (req, res) => {
   const { category }= req.params;
-  const rta = service.delete(category);
+  const rta = await service.delete(category);
   res.json(rta);
 });
 

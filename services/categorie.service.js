@@ -14,7 +14,7 @@ class CategorieService {
     }
   }
 
-  create(data){
+  async create(data){
     const newCategory = data.category;
     this.categories.push(newCategory);
     return (
@@ -24,10 +24,10 @@ class CategorieService {
       }
     );
   }
-  find(){
+  async find(){
     return this.categories;
   }
-  findOne(category){
+  async findOne(category){
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
       return `This category ${category} not Found`;
@@ -36,8 +36,8 @@ class CategorieService {
     }
     return this.categories.includes(category);
   }
-  //seguir aca--------------
-  update(category, changes){
+
+  async update(category, changes){
     const newCategory = changes.category;
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
@@ -52,7 +52,7 @@ class CategorieService {
     return this.categories;
   }
 
-  delete(category){
+  async delete(category){
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
       return `This category ${category} not Found`;
