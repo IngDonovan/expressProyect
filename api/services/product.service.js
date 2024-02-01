@@ -32,12 +32,8 @@ class ProductService {
     this.products.push(newProduct);
     return newProduct;
   }
-  find(){
-    return new Promise((resolve, reject) =>{
-      setTimeout(() => {
-        resolve(this.products);
-      }, 3000);
-    });
+  async find(){
+    return this.products;
   }
   async findOne(id){
     // const name = this.getTotal();
