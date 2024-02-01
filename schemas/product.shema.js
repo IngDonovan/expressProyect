@@ -1,11 +1,11 @@
 const Joi = require('joi');
 
 const id = Joi.string().uuid();
-const title = Joi.string().alphanum().min(3).max(15);
+const title = Joi.string().min(3).max(15);
 const price = Joi.number().integer().min(10);
 const category = Joi.string().min(3).max(15);
 const description = Joi.string().min(3);
-const image = Joi.string.alphanum();
+const image = Joi.string().uri();
 const isBlock = Joi.boolean();
 
 const createProductSchema = Joi.object({
