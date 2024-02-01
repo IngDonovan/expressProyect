@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const routerApi = require('./routes');
 const app = express();
 const port = 3000;
@@ -6,6 +7,7 @@ const port = 3000;
 const { logErrors,  errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 app.use(express.json());
+app.use(cors());//habilita a cualquier dominio
 
 app.get('/', (req, res) => {
   res.send('My Server in ExpressJS')
