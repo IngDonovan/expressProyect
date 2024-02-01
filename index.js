@@ -7,7 +7,18 @@ const port = 3000;
 const { logErrors,  errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 app.use(express.json());
-app.use(cors());//habilita a cualquier dominio
+
+const whitelist = ['http://127.0.0.1:5500'];
+const options = {
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin) || !origin){
+      callback(null, true);
+    }else{
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}
+app.use(cors(options));//habilita a cualquier dominio
 
 app.get('/', (req, res) => {
   res.send('My Server in ExpressJS')
@@ -20,7 +31,7 @@ app.get('/home', (req, res) => {
 });
 
 routerApi(app);
-
+// app.use(cors(options));
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
