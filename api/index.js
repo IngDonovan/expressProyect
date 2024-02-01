@@ -20,13 +20,13 @@ const options = {
 }
 app.use(cors(options));//habilita a cualquier dominio
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('My Server in ExpressJS')
 });
-app.get('/new', (req, res) => {
+app.get('/api/new', (req, res) => {
   res.send('new Routes')
 });
-app.get('/home', (req, res) => {
+app.get('/api/home', (req, res) => {
   res.send('Home Page')
 });
 
