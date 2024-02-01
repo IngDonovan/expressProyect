@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const boom = require('@hapi/boom');
 
 class CategorieService {
 
@@ -30,18 +31,18 @@ class CategorieService {
   async findOne(category){
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
-      return `This category ${category} not Found`;
+      throw boom.notFound('Category not found');
     } else {
       return category;
     }
-    return this.categories.includes(category);
+
   }
 
   async update(category, changes){
     const newCategory = changes.category;
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
-      return `This category ${category} not Found`;
+      throw boom.notFound('Category not found');
     }
     for (let i = 0; i < this.categories.length; i++) {
       if (this.categories[i] === category) {
@@ -55,7 +56,7 @@ class CategorieService {
   async delete(category){
     const isCategory = this.categories.includes(category);
     if (!isCategory) {
-      return `This category ${category} not Found`;
+      throw boom.notFound('Category not found');
     }
     for (let i = 0; i < this.categories.length; i++) {
       if (this.categories[i] === category) {

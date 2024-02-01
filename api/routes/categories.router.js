@@ -1,5 +1,7 @@
 const express = require('express');
 const CategorieService = require('../services/categorie.service');
+const validatorHandler = require('../middlewares/validator.handler');
+const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('../schemas/category.schema');
 const router = express.Router();
 const service = new CategorieService();
 
