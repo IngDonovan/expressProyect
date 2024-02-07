@@ -1,19 +1,25 @@
 const express = require('express');
+
 const ProductService = require('../services/product.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createProductSchema, updateProductSchema, getProductSchema } = require('../schemas/product.schema');
+
 const router = express.Router();
 const service = new ProductService();
 
-router.get('/', async (req, res) => {
-  const products = await service.find();
-  res.json(products)
+router.get('/', async (req, res, next) => {
+  try {
+    const products = await service.find();
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
+
 });
 
-router.get('/filter', (req, res) => {
-  res.send('Filter')
-});
-
+// router.get('/filter', (req, res) => {
+//   res.send('Filter')
+// });
 
 router.get('/:id',
   validatorHandler(getProductSchema,'params'),
@@ -23,7 +29,7 @@ router.get('/:id',
       const product = await service.findOne(id);
       res.json(product);
     } catch (error) {
-      next(error);//de forma explicita
+      next(error);
     }
 
   }
@@ -32,9 +38,14 @@ router.get('/:id',
 router.post('/',
   validatorHandler(createProductSchema,'body'),
   async (req, res, next) => {
-    const body= req.body;
-    const newProduct = await service.create(body);
-    res.status(201).json(newProduct)
+    try {
+      const body= req.body;
+      const newProduct = await service.create(body);
+      res.status(201).json(newProduct);
+    } catch (error) {
+      next(error);
+    }
+
   }
 );
 
@@ -42,7 +53,7 @@ router.post('/',
 router.patch('/:id',
   validatorHandler(getProductSchema,'params'),
   validatorHandler(updateProductSchema,'body'),
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const { id }= req.params;
       const body= req.body;
