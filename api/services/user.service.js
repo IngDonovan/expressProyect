@@ -14,7 +14,7 @@ class UserService {
       this.users.push({
         id: faker.string.uuid(),
         avatar: faker.image.avatar(),
-        birthday: faker.date.birthdate(),
+        // birthday: faker.date.birthdate(),
         email: faker.internet.email(),
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
@@ -62,7 +62,12 @@ class UserService {
       throw boom.notFound('User not found');
     }
     this.users.splice(index, 1);
-    return { id };
+    return (
+      {
+        status: "Delete",
+        id: id,
+      }
+     );
   }
 
 }
